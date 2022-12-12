@@ -1,0 +1,1011 @@
+<!-- Output copied to clipboard! -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@huggingface">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="images/favicon.ico">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Font Awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+  <!-- Bootstrap Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <title>Knowledge Distillation</title>
+</head>
+
+<body>
+
+
+  <section class="container-fluid" id="testimonials">
+
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active container-fluid">
+          <h2 class="testimonial-text">David Aponte</h2>
+          <img class="testimonial-image" src="images/da.jpg" alt="dog-profile">
+          <em>NJIT</em>
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">Pooja Suthar</h2>
+          <img class="testimonial-image" src="images/ps.jpg" alt="lady-profile">
+          <em>NJIT</em>
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">William Duggan</h2>
+          <img class="testimonial-image" src="images/wd.jpg" alt="lady-profile">
+          <em>NJIT</em>
+        </div>
+        <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+
+  </section>
+
+
+  <section class="container-fluid" id="title">
+
+    <h1>Knowledge Distillation</h1>
+    <p>
+      — — — —
+    </p>
+    <p>New Jersey Institute of Technology</p>
+    <p>[CS677] Deep Learning</p>
+    <p>Professor Ioannis Koutis</p>
+    <p>Created by: Aponte, David; Duggan, William; Suthar, Pooja</p>
+    <p>Using HuggingFace "clinc-oos" dataset for transfer learning kd-DistilBERT-base-uncased</p>
+    — — — —
+    <div class="iframe-container-fluid">
+      <iframe width="" height="" src="https://www.youtube.com/embed/w-WfHlZ8TN4" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe><br>
+      <button class="download-button btn btn-lg btn-dark" type="button" href="https://colab.research.google.com/drive/1Xn27ljXPM9L88sJrynRADnGdKhZxypwb?usp=sharing">Follow the code!</button>
+    </div>
+
+    <hr>
+    <h1 id="abstract">Abstract</h1>
+    <p>
+      The central aspect of intent classification in artificial intelligence and
+      machine learning is to identify and classify user intent. This is done
+      automatically when software receives a query to access some message from
+      keywords or phrases, more commonly known are chatbots.
+    </p>
+    <p>
+      The goal of Natural Language Understanding (NLU), which is a branch of Natural
+      Language Processing (NLP), is to improve machine reading comprehension by
+      examining the grammar and context of words. To assist computers to identify
+      exactly how to perform the appropriate response message back to humans for
+      thousands of different languages all over the world seems tedious; even more so
+      when calculating computational costs.
+    </p>
+    <p>
+      Our group experiments to perform model compression using DistilBERT as the
+      smaller student model, and the large teacher model BERT. We aim to explore
+      models encapsulating more out of scope training that can lead to improvements on
+      out-of-scope performance, without compromising significant computational cost.
+      In conjunction, we are interested in recent studies that consider the problem of
+      multi-intent classification to be future work, and why smaller, less costly,
+      datasets are preferred.
+    </p>
+    <hr>
+    <h1 id="bert">BERT</h1>
+    <p>
+      Bidirectional Encoder Representations from Transformers, BERT for short, is
+      designed to pre-train representations from unlabeled text by jointly
+      conditioning on both left and right context.
+    </p>
+    <ul>
+      <li><strong>Encoder representations</strong> take text data in a way that
+        captures the underlying language structure. This can be useful for a variety of
+        natural language processing tasks, such as sentiment analysis, named entity
+        recognition, and language translation.
+        <ul>
+          <li><strong>Transformer </strong>architecture that BERT is based on uses
+            self-attention mechanisms to learn the relationships between words in a
+            sentence, allowing it to capture long-range dependencies in the text data. This
+            is in contrast to traditional language models, which use recurrent neural
+            networks and are limited to capturing short-range dependencies. It is a powerful
+            NLP algorithm which was introduced in the paper "Attention is All You Need"
+            published in 2017.
+            <ul>
+              <li><strong>Bidirectional </strong>defines the training process by using left
+                and right context when dealing with a word
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      The NLP vectorization method allows users to shape sentences, tokenizing and
+      embedding strings to vectors, so that standard machines can better translate
+      text or intent from binary. The basic requirements would be a vocabulary of
+      known words and, then a measure of the presence of known words.
+    </p>
+    <img src="https://amitness.com/images/use-word-embedding-average.png" width="img-fluid" alt="alt_text" title="image_tooltip">
+    <p>
+      BERT can be fine tuned downstream with just one additional output layer to
+      create state of the art models for a wide range of NLP tasks, for example:
+      Relation Extraction, Question Answering, Chatbot Dialogue, Semantic Search
+      Indexing, Knowledge Base Population, E-Discovery and Media Monitoring, and much
+      more.
+    </p>
+    <p>
+      BERT is pre-trained in an unsupervised manner, on a large corpus of unlabelled
+      text including the entire Wikipedia (2.5 billion words) and BookCorpus (800
+      million words), to create a general language representation model. This massive
+      dataset equates to <code>2 quintillion (2.0 x 10<sup>1</sup>)</code>
+      possabilities. Modern ML/DL practitioners optimized BERT in a variety of ways,
+      noting a few below:
+    </p>
+    <ul>
+      <li><strong><a href="https://arxiv.org/abs/1909.11942">ALBERT</a></strong> [2]
+        by Google and more — This paper describes parameter reduction techniques to
+        lower memory reduction and increase the training speed of BERT models.
+      <li><strong><a href="https://arxiv.org/abs/1907.11692">RoBERTa</a></strong> [3]
+        by Facebook — This paper for FAIR believes the original BERT models were
+        under-trained and shows with more training/tuning it can outperform the initial
+        results.
+      <li><strong><a href="https://arxiv.org/abs/1904.09223">ERNIE</a></strong> [4]
+        Enhanced Representation through Knowledge Integration by Baidu — It is inspired
+        by the masking strategy of BERT and learns language representation enhanced by
+        knowledge masking strategies, which includes entity-level masking and
+        phrase-level masking.
+      <li><strong><a href="https://arxiv.org/abs/1910.01108">DistilBERT</a></strong>
+        [5] Smaller BERT using model distillation from Hugging Face that we will be
+        using in our experiment.
+      </li>
+    </ul>
+    <p>
+      BERT’s architecture builds on top of a Transformer. Simply put, it is a stack of
+      Transformer Encoders. It only uses the encoder part of the Transformer, which
+      currently has two classes:
+    </p>
+    <table class="container-fuid">
+      <tr>
+        <td><strong>BERT Base</strong>
+        </td>
+        <td><strong>BERT Large</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>12 layers (encoder blocks)
+        </td>
+        <td>24 layers (encoder blocks)
+        </td>
+      </tr>
+      <tr>
+        <td>12 attention heads
+        </td>
+        <td>16 attention heads
+        </td>
+      </tr>
+      <tr>
+        <td>110 million parameters
+        </td>
+        <td>340 million parameters
+        </td>
+      </tr>
+    </table>
+<br>
+    <p>
+      Moreover, BERT uses two unsupervised tasks for pre-training: masked language
+      modeling and next sentence prediction. To be fully bidirectional, instead of
+      learning to predict the next word of a sentence, we learn to predict a missing
+      word within the sequence. In addition to learning the relationship between
+      words, BERT is also trained to learn the relationships between sentences. For
+      example, providing two sentences to ask if they logically come one after the
+      other in a corpus or if they are randomly picked.
+    </p>
+    <p>
+      Training on a dataset this large takes a long time. BERT’s training was made
+      possible by the novel Transformer architecture and enhanced by using Tensor
+      Processing Units (TPUs) which is Google’s custom circuit built specifically for
+      large Machine Learning models. 64 TPUs trained BERT over the course of 4 days,
+      which is out of scope for the ordinary person to practice within a reasonable
+      amount of time. To better appreciate this, tinkering with Google’s <a
+        href="http://playground.tensorflow.org/#activation=relu&batchSize=10&dataset=spiral&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=8,8,5&seed=0.53586&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false&showTestData_hide=true&activation_hide=true&problem_hide=true&noise_hide=true&discretize_hide=true&regularization_hide=true&dataset_hide=true&batchSize_hide=true&learningRate_hide=true&regularizationRate_hide=true&percTrainData_hide=true&numHiddenLayers_hide=true">Tensorflow</a>
+      [6] playground, encapsulates many computational avenues for neural networks to
+      explore, which can exponentially demand higher computational power.
+    </p>
+    <hr>
+    <h2 id="distilbert">DistilBERT</h2>
+      <p>
+        <img src="https://www.researchgate.net/profile/Alhassan-Mabrouk/publication/358239462/figure/fig2/AS:1120931644747777@1644262338087/The-DistilBERT-model-architecture-and-components.png" width="" alt="figure-3-distilbert-model">Figure 3
+        - DistilBERT model architecture and components</p>
+    <p>
+      Neural networks typically produce class probabilities by using a softmax output
+      layer converting the logit, computed for each class into a probability, by
+      comparing with the other logits. In its simplest form of distillation, knowledge
+      is transferred to the distilled model by training it on a transfer set and using
+      a soft target distribution for each case in the transfer set that is produced by
+      using the cumbersome model with a high target value in its softmax. Using the
+      logits of probability and combining it into the loss function to compress
+      knowledge in an ensemble of models into a single model, this creates a more
+      friendly environment for deployment, and fine tuning. There are generally two
+      types of knowledge distillation:
+    </p>
+    <ul>
+      <li>Task-specific
+      <li>Task-agnostic
+      </li>
+    </ul>
+    <p>
+      Task-specific knowledge distillation is used to fine-tune a model on a given
+      dataset. The idea came from the <a href="https://arxiv.org/abs/1910.01108">DistilBERT</a> [7] paper, as well as the
+      <a href="https://arxiv.org/abs/2010.13382">FastFormers</a> [8] paper. DistilBERT
+      was pretrained on the same data as BERT. We use the transformers Pipeline API
+      which downloads and cahes this pretrained model.
+    </p>
+
+    <h5 id="figure-4-knowledge-distillation-from-transformer">Figure 4 - Knowledge
+      Distillation from Transformer</h5>
+    <p>
+      Knowledge distillation is performed during the pre-training phase to reduce the
+      size of a BERT model by 40% (or 1.32 billion words), retaining a majority of its
+      language understanding capabilities which performs much faster. This is because
+      transfer learning does not require a lot of data as earlier features were
+      already trained. Thus, adding a smaller dataset with a lot less weights, allows
+      for more significant training performance. Intuitively, DistilBERT balances
+      memory against storage in order to fit in RAM on standard machines. As disks are
+      generally slower and memory is generally faster, the model reads data from
+      memory while larger data files, such as images, can live on the disk.
+    </p>
+    <h1 id="model-building">Model Building</h1>
+    <p>
+      To use a pretrained BERT-based model, you will need to install the transformers
+      library and PyTorch. Ideally, using a virtual environment such as Google Collab,
+      Jupyter or equivalent. We will be using the Google Collab environment. Here are
+      some basic steps to use the pretrained BERT-based model for classification:
+    </p>
+    <ol>
+      <li>Install the transformers library and dependencies.
+      <li>Import the necessary modules from the transformers library, as well as
+        PyTorch.
+      <li>Load the pretrained BERT-based model and tokenizer.
+      <li>Define the input text and tokenize it using the BERT tokenizer.
+      <li>Pass the input tensor through the BERT model to obtain the logits (predicted
+        probabilities for each class).
+      <li>Use the logits to predict the class labels for the input text.
+      <li>If you want to fine-tune the BERT model on your own dataset, you can do so
+        by running the following steps:
+      </li>
+    </ol>
+    <ul>
+      <li>Define your dataset using the `TensorDataset` class from PyTorch, which
+        takes as input the input tensors and the corresponding target labels.
+        <ul>
+          <li>Define a DataLoader for the dataset, which will be used to iterate through
+            the dataset in mini-batches during training.
+            <ul>
+              <li>Define an optimizer and a loss function for training. For example, the
+                `Adam` optimizer and the `cross-entropy` loss function.
+                <ul>
+                  <li>Train the model by iterating through the dataset using the DataLoader and
+                    updating the model parameters using the optimizer and the loss function. You
+                    must first use the `model.train()` method to switch the model to training mode.
+                    Then you use the `model.eval()` method to switch onto the evaluation mode.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h2 id="implementing-our-model">Implementing our model</h2>
+    <p>
+      Data:
+    </p>
+    <ul>
+      <li>We are using the clinc-oos dataset available at HuggingFace available <a href="#references">here</a>.
+      <li>DistilBERT for smaller transformer pipeline API which downloads and caches
+        the pretrained model
+      </li>
+    </ul>
+    <p>
+      Hardware:
+    </p>
+    <ul>
+      <li>HuggingFace account is needed
+      <li>Python 3.6 and above
+      <li>PyTorch, Transformers and python stock libraries
+      <li>CPU but allows for GPU enabled setup
+      <li>Jupyter, GoogleColab or equivalent environment
+      </li>
+    </ul>
+    <p>
+      Objective:
+    </p>
+    <ul>
+      <li>Fine-tune DistilBERT to classify text
+      </li>
+    </ul>
+    <h2 id="requirements">Requirements</h2>
+    <p>
+      We will be fine tuning a transformer model for the multi-text classification
+      problem. This is one of the most common business problems where a given piece of
+      text, sentence, document needs to be classified into one of the categories out
+      of the given list.
+    </p>
+    <p>
+      The following scripts leverage multiple tools designed by other teams to
+      cooperate with implementation. Details of the tools used below must be present
+      in the setup to successfully run our model.
+    </p>
+    <p>
+      Begin by installing basic dependencies libraries
+    </p>
+
+
+    <pre class="prettyprint">!pip install torch
+!pip install transformers datasets
+!pip install matplotlib pandas
+!pip install torchinfo
+!pip install latexify-py==0.2.0
+!pip install huggingface_hub
+</pre>
+    <p>
+      Try adding a summary from torchinfo as it provides unique output when calling
+      it onto the model for understanding architectures, etc.
+    </p>
+
+
+    <pre class="prettyprint">try:
+    from torchinfo import summary
+except:
+    print("[INFO] Couldn't find torchinfo... installing it.")
+    !pip install -q torchinfo
+    from torchinfo import summary
+</pre>
+    <h3 id="login-to-huggingface">Login to HuggingFace</h3>
+    <p>
+      Login to huggingface from your local notebook. This enables access so that local
+      notebook and huggingface notebook can communicate checkpoints.
+    </p>
+
+
+    <pre class="prettyprint"># This code will be hidden when the notebook is loaded.
+from huggingface_hub import notebook_login
+
+notebook_login()
+</pre>
+    <p>
+      This will prompt you by asking for your access Token provided automatically by
+      Hugging Face. You can access your token in the settings section of your profile
+      documented <a href="https://huggingface.co/docs/hub/security-tokens">here</a>
+      [10]. Copy and paste your token into the local notebook (NOTE: you must be
+      logged in to HuggFace to work).
+    </p>
+    <p>
+
+    <h3 id="mount-to-google-drive">Mount to Google Drive</h3>
+    <p>
+      Optional for those looking to provide reproducibility and add style or context.
+    </p>
+
+
+    <pre class="prettyprint">#@title Mount to Google Drive {display-mode: "form"}
+
+# This code will be hidden when the notebook is loaded.
+from google.colab import drive
+
+drive.mount('/content/gdrive')
+</pre>
+    <h2 id="teacher-model">Teacher Model</h2>
+    <p>
+      Load the pretrained BERT-based model and tokenizer by running the following
+      code.
+    </p>
+
+
+    <pre class="prettyprint">from transformers import pipeline
+
+# Load pretrained teacher model from huggingface
+teacher_id = "transformersbook/bert-base-uncased-finetuned-clinc"
+pipe = pipeline("text-classification", model=teacher_id)
+</pre>
+    <p>
+      By combining tokenization, forward pass and backward pass operations,
+      transformer pipelines can be set up for our specific task of text
+      classification.
+    </p>
+
+
+    <pre class="prettyprint">teacher_module = pipe.model
+teacher_module
+</pre>
+    <p>
+      Inspect the teacher_model using torch summary to display layers and parameters.
+    </p>
+
+
+    <pre class="prettyprint">import torch
+from torchinfo import summary
+
+teacher_module.to(torch.device("cpu"))
+summary(teacher_module, dtypes=['torch.IntTensor'], device=torch.device("cpu"))
+</pre>
+    <p>
+    <p>
+      Define a variable string; our sample from the teacher_model, piped query scores
+      <code>55%</code> accuracy targeting the label <code>car_rental </code>below.
+    </p>
+    <p>
+    <h3 id="preprocessing">Preprocessing</h3>
+    <p>
+      Load in the dataset from datasets utility. The clinic-oos dataset contains:
+    </p>
+    <ul>
+      <li>23,700 queries (22,500 in-scope queries covering 150 intents), which will be
+        grouped into 10 general, categorical domains.
+      <li>1,200 out-of-scope queries as well, and can be found on the hugging face
+        website.
+      </li>
+    </ul>
+    <p>
+      Load the dataset from the PyTorch utility and sample a test index label to
+      check that it is loaded properly. Before training, define the intents to
+      transfer dataset objects.
+    </p>
+
+
+    <pre class="prettyprint">from datasets import load_dataset
+
+clinc = load_dataset("clinc_oos", "plus")
+</pre>
+    <p>
+      ========================================================================
+    </p>
+
+
+    <pre class="prettyprint">sample = clinc["test"][33]
+print(f"Text | Intent = {sample}")
+</pre>
+    <p>
+      ========================================================================
+    </p>
+
+
+    <pre class="prettyprint">intents = clinc["test"].features["intent"]
+intents.int2str(sample["intent"])
+</pre>
+    <p>
+      ========================================================================
+    </p>
+    <p>
+      Importing load_metric from PyTorch to measure accuracy score for the model.
+    </p>
+
+
+    <pre class="prettyprint">from datasets import load_metric
+
+accuracy_score = load_metric("accuracy")
+</pre>
+    <p>
+      ========================================================================
+    </p>
+    <h3 id="benchmarking-performance">Benchmarking Performance</h3>
+    <p>
+      To measure the performance improvements from knowledge distillation, we will
+      benchmark our results to measure the following:
+    </p>
+    <ul>
+      <li>Size of the model in megabytes (MB).
+      <li>Accuracy of the model.
+      <li>Average latency in milliseconds (ms). To report the average and standard
+        deviation, we will conduct multiple trials to measure execution time of the
+        forward pass (including tokenization since we are using a pipeline).
+      </li>
+    </ul>
+    <p>
+      We will record performance metrics in a <code>perf_metrics</code> dictionary
+      that we will update for each benchmarking run.
+    </p>
+
+
+    <pre class="prettyprint">from pathlib import Path
+import numpy as np
+import torch
+from time import perf_counter
+
+class PerformanceBenchmark:
+    def __init__(self, pipeline, dataset, optim_type="teacher-bert"):
+        self.pipeline = pipeline
+        self.dataset = dataset
+        self.optim_type = optim_type
+
+
+    def compute_accuracy(self):
+      preds, labels = [], []
+      for example in self.dataset:
+          pred = self.pipeline(example["text"])[0]["label"]
+          label = example["intent"]
+          preds.append(intents.str2int(pred))
+          labels.append(label)
+      accuracy = accuracy_score.compute(predictions=preds, references=labels)
+      print(f"Accuracy on test set - {accuracy['accuracy']:.3f}")
+      return accuracy
+
+    def compute_size(self):
+        state_dict = self.pipeline.model.state_dict()
+        tmp_path = Path(f"{self.optim_type}-model.pt")
+        torch.save(state_dict, tmp_path)
+        # Measure in megabytes
+        size_mb = Path(tmp_path).stat().st_size / (1024 * 1024)
+        tmp_path.unlink()
+        print(f"Model size (MB): {size_mb:.2f}")
+        return {"size_mb" : size_mb}
+
+    def time_pipeline(self, trials, query="What is the pin number for my account?"):
+        latencies = []
+        # warm up CPU/GPU
+        for _ in range(10):
+          _ = self.pipeline(query)
+        # Run trials and record latency
+        for _ in range(trials):
+          start = perf_counter()
+          _ = self.pipeline(query)
+          latency = perf_counter() - start
+          latencies.append(latency)
+        # Get mean and std
+        time_avg_ms = np.mean(latencies)*1000
+        time_std_ms = np.std(latencies)*1000
+        print(f"Average latency (ms): {time_avg_ms:.2f} +/- {time_std_ms:.2f}")
+        return {"time_avg_ms": time_avg_ms, "time_std_ms": time_std_ms}
+
+
+    def run_benchmark(self, trials=100):
+        metrics = {}
+        metrics[self.optim_type] = self.compute_size()
+        metrics[self.optim_type].update(self.time_pipeline(trials=trials))
+        metrics[self.optim_type].update(self.compute_accuracy())
+        return metrics
+</pre>
+    <h3 id="benchmarking-teacher-bert-base-uncased-fine-tuned">Benchmarking Teacher
+      BERT base uncased fine-tuned</h3>
+    <p>
+    <h5 id="figure-5-teacher-model-baseline-results">Figure 5 - Teacher Model
+      Baseline results</h5>
+    <h2 id="knowledge-distillation">Knowledge Distillation</h2>
+    <h3 id="arguments">Arguments</h3>
+    <p>
+      Knowledge distillation arguments included:
+    </p>
+    <ul>
+      <li>Alpha = 0.5
+      <li>Temperature = 2.0
+      <li>Note: these control the relative weight of the distillation loss and how
+        much the probability distribution of the labels should be rendered by.
+      </li>
+    </ul>
+
+
+    <pre class="prettyprint">from transformers import TrainingArguments
+
+class KDArguments(TrainingArguments):
+    def __init__(self, *args, alpha=0.5, temperature=2.0, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.alpha = alpha
+        self.temperature = temperature
+</pre>
+    <h3 id="loss-function">Loss Function</h3>
+    <p>
+      We define KD_Loss to calculate the difference in the output text created by the
+      model, and the actual output text. We also attempt to use the python package
+      latexify function to pretty print our compiled functions. NOTE: This package is
+      a cosmetic option and not necessary
+    </p>
+
+
+    <pre class="prettyprint">#@title Knowledge Distillation Loss Function {display-mode: "form"}
+
+# This code will be hidden when the notebook is loaded.
+import latexify
+
+@latexify.with_latex
+def KD_Loss(inputs, temperature, alpha,  student, teacher):
+    # Extract cross-entropy loss and logits from student
+    student_outputs = student(**inputs)
+    loss_ce = student_outputs.loss
+    student_logits = student_outputs.logits
+
+    # Extract logits from teacher
+    with torch.no_grad():
+        teacher_outputs = teacher(**inputs)
+        teacher_logits = teacher_outputs.logits
+
+    # Soften probabilities and compute distillation loss
+    loss_func = nn.KLDivLoss(reduction="batchmean")
+    loss_kd = temperature ** 2 * loss_func(
+        F.log_softmax(student_logits / temperature, dim=-1),
+        F.softmax(teacher_logits / temperature, dim=-1))
+
+
+    # Return weighted student loss
+    loss = alpha * loss_ce + (1. - alpha) * loss_kd
+    return loss
+KD_Loss
+</pre>
+    <p>
+      <a href="en.wikipedia.org/wiki/Kullback-Leibler_divergence">Kullback-Leibler
+        loss</a><code> nn.KLDivLoss</code> computes the gradients with respect to q
+      (student distribution) to obtain the same gradients.
+      <code>reduction="batchmean"</code> takes the batch size dimension average to
+      measure similarity of two distributions. It also allows leveraging PyTorch
+      implementation for faster computation:
+    </p>
+    <h2 id="student-model">Student Model</h2>
+    <p>
+      We choose a student model that is similar to the teacher model but smaller
+      (e.g, We are using BERT as the parent model, so we can use DistilBERT as the
+      student). As discussed earlier, there are others to choose from that may better
+      fit your needs.
+    </p>
+
+
+    <pre class="prettyprint">import torch.nn as nn
+import torch.nn.functional as F
+from transformers import Trainer
+
+class KDTrainer(Trainer):
+  def __init__(self, *args, teacher_model=None, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.teacher_model = teacher_model
+    # place teacher on same device as student
+    self._move_model_to_device(self.teacher_model, self.model.device)
+    # Keep teacher in eval mode
+    self.teacher_model.eval()
+
+
+  # Overwrite compute_loss function of trainer
+  def compute_loss(self, model, inputs, return_outputs=False):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device found globally
+    inputs = inputs.to(device)
+
+    student_outputs = model(**inputs)
+    # Extract cross-entropy loss and logits from student
+    loss_ce = student_outputs.loss
+    student_logits = student_outputs.logits
+
+    # Extract logits from teacher
+    with torch.no_grad():
+        teacher_outputs = self.teacher_model(**inputs)
+        teacher_logits = teacher_outputs.logits
+
+    # Soften probabilities and compute distillation loss
+    loss_func = nn.KLDivLoss(reduction="batchmean")
+    loss_kd = self.args.temperature ** 2 * loss_func(
+        F.log_softmax(student_logits / self.args.temperature, dim=-1),
+        F.softmax(teacher_logits / self.args.temperature, dim=-1))
+
+
+    # Return weighted student loss
+    loss = self.args.alpha * loss_ce + (1. - self.args.alpha) * loss_kd
+    return (loss, student_outputs) if return_outputs else loss
+</pre>
+    <h3 id="preprocess-data">Preprocess Data</h3>
+
+
+
+    <pre class="prettyprint">from transformers import AutoTokenizer
+
+student_id = "distilbert-base-uncased"
+student_tokenizer = AutoTokenizer.from_pretrained(student_id)
+
+def tokenize_batch(batch):
+  return student_tokenizer(batch["text"], truncation=True)
+
+clinc_encoded = clinc.map(tokenize_batch, batched=True, remove_columns=['text'])
+clinc_encoded = clinc_encoded.rename_column("intent", "labels")
+
+def compute_metrics(pred):
+  predictions, labels = pred
+  predictions = np.argmax(predictions, axis=1)
+  return accuracy_score.compute(predictions=predictions, references=labels)
+
+batch_size = 48
+
+finetuned_id = "kd-distilBERT-clinc"
+student_training_args = KDArguments(
+    output_dir=finetuned_id,
+    evaluation_strategy="epoch",
+    num_train_epochs=5,
+    learning_rate=2e-5,
+    per_device_train_batch_size=batch_size,
+    per_device_eval_batch_size=batch_size,
+    alpha=1,
+    weight_decay=0.01,
+    push_to_hub=True,
+)
+student_training_args.logging_steps = len(clinc_encoded['train']) // batch_size
+student_training_args.disable_tqdm = False
+student_training_args.save_steps = 1e9
+</pre>
+    <p>
+      Student model needs to be mapped from intents.
+    </p>
+
+
+    <pre class="prettyprint">id2label = pipe.model.config.id2label
+label2id = pipe.model.config.label2id
+num_labels = intents.num_classes
+</pre>
+    <h3 id="load-teacher-checkpoint-without-tokenizer">Load Teacher checkpoint
+      without tokenizer</h3>
+
+
+
+    <pre class="prettyprint">from transformers import AutoModelForSequenceClassification, DataCollatorWithPadding
+
+# define data_collator
+data_collator = DataCollatorWithPadding(tokenizer=student_tokenizer)
+
+# Define teacher model
+teacher_model = AutoModelForSequenceClassification.from_pretrained(
+    teacher_id,
+    num_labels=num_labels,
+    id2label=id2label,
+    label2id=label2id,
+)
+
+# Define student model
+student_model = AutoModelForSequenceClassification.from_pretrained(
+    student_id,
+    num_labels=num_labels,
+    id2label=id2label,
+    label2id=label2id,
+)
+</pre>
+    <p>
+      WARNING: Some weights of the model checkpoint at distilbert-base-uncased were
+      not used when initializing DistilBertForSequenceClassification:
+    </p>
+    <p>
+    </p>
+
+
+    <pre class="prettyprint">['vocab_transform.bias', 'vocab_projector.weight', 'vocab_layer_norm.bias', 'vocab_projector.bias', 'vocab_transform.weight', 'vocab_layer_norm.weight']
+['classifier.bias', 'classifier.weight', 'pre_classifier.weight', 'pre_classifier.bias']</pre>
+    <ul>
+      <li>This <strong>IS </strong>expected if you are initializing
+        DistilBertForSequenceClassification from the checkpoint of a model trained on
+        another task or with another architecture (e.g. initializing a
+        BertForSequenceClassification model from a BertForPreTraining model).
+        <ul>
+          <li>This <strong>IS NOT</strong> expected if you are initializing
+            DistilBertForSequenceClassification from the checkpoint of a model that you
+            expect to be exactly identical (initializing a BertForSequenceClassification
+            model from a BertForSequenceClassification model).
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="training-procedure">Training Procedure</h3>
+    <h4 id="distilbert-task-specific-student-model">DistilBERT task-specific student
+      model</h4>
+    <p>
+      We further study the use of DistilBERT on downstream tasks under efficient
+      inference constraints. We use our compact pre-trained language model by
+      fine-tuning it with a classification task, which mixes distillation pre-training
+      and transfer learning.
+    </p>
+
+
+    <pre class="prettyprint">distilbert_trainer = KDTrainer(
+    student_model,
+    student_training_args,
+    teacher_model=teacher_model,
+    train_dataset=clinc_encoded['train'],
+    eval_dataset=clinc_encoded['validation'],
+    data_collator=data_collator,
+    tokenizer=student_tokenizer,
+    compute_metrics=compute_metrics,
+  )
+</pre>
+    <p>
+      Just over 67 million trainable parameters, we take 15,250 examples in 48 batches
+      of 3,100 each over 5 epochs to evaluate.
+    </p>
+    <h5 id="figure-6-evaluation-of-task-specific-trainer">Figure 6 - Evaluation of
+      task-specific trainer</h5>
+    <h4 id="saving-to-hugging-face-😊">Saving to Hugging Face 😊</h4>
+    <p>
+    </p>
+    <p>
+      As you can see below results classifying intent “i like you. i love you”, some
+      interesting labels emerge. Using <code>"your_trainer".push_to_hub()</code>
+      commits and pushes to your profile per account model card inference each time a
+      training run is completed on your specific fine tuned model.
+    </p>
+    <h5 id="figure-7-student-model-summary">Figure 7 - Student Model summary</h5>
+    <h3 id="benchmarking-distilled-student-fine-tuned-model-results">Benchmarking
+      distilled student fine-tuned model results</h3>
+
+
+
+    <pre class="prettyprint">optim_type = "kd-DistilBERT"
+pb = PerformanceBenchmark(
+    student_pipe,
+    clinc["test"],
+    optim_type=optim_type,
+)
+perf_metrics.update(pb.run_benchmark())
+</pre>
+
+    <h5 id="figure-8-student-model-performance">Figure 8 - Student model
+      performance</h5>
+    <h2 id="analysis-and-evaluation">Analysis and evaluation</h2>
+
+
+
+    <pre class="prettyprint">import pandas as pd
+import matplotlib.pyplot as plt
+
+def plot_metrics(perf_metrics, current_optim_type):
+    df = pd.DataFrame.from_dict(perf_metrics, orient='index')
+
+    for idx in df.index:
+        df_opt = df.loc[idx]
+        # Add a dashed circle around the current optimization type
+        if idx == current_optim_type:
+            plt.scatter(df_opt["time_avg_ms"], df_opt["accuracy"] * 100,
+                        alpha=0.5, s=df_opt["size_mb"], label=idx,
+                        marker='$\u25CC$')
+        else:
+            plt.scatter(df_opt["time_avg_ms"], df_opt["accuracy"] * 100,
+                        s=df_opt["size_mb"], label=idx, alpha=0.5)
+
+
+    legend = plt.legend(bbox_to_anchor=(1,1))
+    for handle in legend.legendHandles:
+        handle.set_sizes([20])
+</pre>
+
+    <h1 id="conclusion">Conclusion</h1>
+    <p>
+    </p>
+    <p>
+      This model is a fine-tuned version of distilbert-base-uncased on the clinc_oos
+      dataset. Using the teacher signal, we were able to train our student model, the
+      smaller language model DistilBERT, from the supervision of BERT-base-uncased
+      version of BERT.
+    </p>
+    <p>
+      Following Hinton et al., the training loss is a linear combination of the
+      distillation loss and the masked language modeling loss. In doing so, we
+      achieved our target objective by reducing the total number of parameters,
+      retaining accuracy of BERT’s performance on the understanding benchmark.
+    </p>
+
+
+    <pre class="prettyprint">This model is a fine-tuned version of [distilbert-base-uncased](https://huggingface.co/distilbert-base-uncased) on the clinc_oos dataset.
+It achieves the following results on the evaluation set:
+- Loss: 0.7533
+- Accuracy: 0.9235</pre>
+    <h1 id="discussing-novel-future-applications-of-the-model">Discussing novel
+      future applications of the model</h1>
+    <p>
+      Some potential future applications of the model could include:
+    </p>
+    <ul>
+      <li>Using the model as part of a larger system for automatic translation of
+        languages, allowing for faster and more efficient translation of text from one
+        language to another
+      <li>Developing new techniques for fine-tuning the model on specific datasets, to
+        improve its performance on a wide range of natural language processing tasks
+      <li>Incorporating the model into intelligent assistants or chatbots, allowing
+        for more natural and effective communication with users
+      <li>Using the model as part of a system for generating personalized content,
+        such as articles or social media posts, based on a user's interests and
+        preferences
+      </li>
+    </ul>
+    <p>
+      These are just a few examples of the potential future applications of the
+      Knowledge-Distillation-DistilBERT-Base-uncased-fine-tuned model. As the field of
+      natural language processing continues to evolve, it is likely that new and novel
+      applications of the model will be developed.
+    </p>
+    <p>
+    </p>
+    <p>
+      Recent works in knowledge distillation propose task-agnostic as well as
+      task-specific methods to compress the models, with task-specific ones often
+      yielding higher compression rate.
+    </p>
+    <p>
+      XtremeDistilTransformers is a technique for task-agnostic distillation, which is
+      a method for training a smaller model (called the "student") to perform a
+      specific task by using a larger, pre-trained model (called the "teacher") as a
+      guide.
+    </p>
+    <p>
+      It is designed to improve the transfer of knowledge from the teacher model to
+      the student model. It does this by using a combination of distillation and
+      transfer learning methods, which allows the student model to learn more
+      effectively from the teacher and adapt to the specific characteristics of the
+      target task.
+    </p>
+    <p>
+      This can be especially useful when the student model is smaller and more
+      efficient than the teacher, making it more practical for deployment in
+      real-world applications
+    </p>
+    <h1 id="references">References</h1>
+    <p>
+      [1] <a href="https://huggingface.co/datasets/clinc_oos">https://huggingface.co/datasets/clinc_oos</a>
+      (“clinc_oos · Datasets at Hugging Face.” <em>Hugging Face</em>,
+      https://huggingface.co/datasets/clinc_oos.)
+    </p>
+    <p>
+      [2] <a href="https://arxiv.org/abs/1909.11942">https://arxiv.1909.11942</a>
+      (“[1909.11942] ALBERT: A Lite BERT for Self-supervised Learning of Language
+      Representations”)
+    </p>
+    <p>
+      [3] <a href="https://arxiv.org/abs/1907.11692">https://arxiv.org/abs/1907.11692</a>
+      (“[1907.11692] RoBERTa: A Robustly Optimized BERT Pretraining Approach.”
+      <em>arXiv</em>, 26 July 2019, https://arxiv.org/abs/1907.11692.)
+    </p>
+    <p>
+      [4] <a href="https://arxiv.org/abs/1904.09223">https://arxiv.org/abs/1904.09223</a> (
+      “[1904.09223] ERNIE: Enhanced Representation through Knowledge Integration.”
+      <em>arXiv</em>, 19 April 2019, https://arxiv.org/abs/1904.09223. “[1907.11692])
+    </p>
+    <p>
+      [5] <a href="https://arxiv.org/abs/1910.01108">https://arxiv.org/abs/1910.01108</a>
+      (“[1910.01108] DistilBERT, a distilled version of BERT: smaller, faster, cheaper
+      and lighter”)
+    </p>
+    <p>
+      [7] <a href="https://arxiv.org/abs/2010.13382">https://arxiv.org/abs/2010.13382</a>
+      (Kim, Young Jin, and Hany Hassan.) “[2010.13382] FastFormers: Highly Efficient
+      Transformer Models for Natural Language Understanding.” <em>arXiv</em>, 26
+      October 2020, https://arxiv.org/abs/2010.13382.
+    </p>
+    <p>
+      [8] <a href="https://arxiv.org/abs/1607.01759">https://arxiv.org/abs/1607.01759</a>
+      (“[1607.01759] Bag of Tricks for Efficient Text Classification”)
+    </p>
+    <p>
+      [10] <a href="https://arxiv.org/abs/2106.04563">https://arxiv.org/abs/2106.04563</a>
+      (“[2106.04563] XtremeDistilTransformers: Task Transfer for Task-agnostic
+      Distillation”)
+    </p>
+    <h1 id="quick-links">Quick Links</h1>
+    <p>
+      [6] <a
+        href="http://playground.tensorflow.org/#activation=relu&batchSize=10&dataset=spiral&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=8,8,5&seed=0.53586&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false&showTestData_hide=true&activation_hide=true&problem_hide=true&noise_hide=true&discretize_hide=true&regularization_hide=true&dataset_hide=true&batchSize_hide=true&learningRate_hide=true&regularizationRate_hide=true&percTrainData_hide=true&numHiddenLayers_hide=true">Tensorflow
+        Playground</a>
+    </p>
+    <p>
+      [9] <a href="https://huggingface.co/docs/hub/security-tokens">Accessing you
+        HuggingFace Token </a>
+    </p>
+    <p>
+      [11] <a href="https://colab.research.google.com/drive/1Xn27ljXPM9L88sJrynRADnGdKhZxypwb?usp=sharing">Completed
+        Colab Notebook</a>
+    </p>
+
+</body>
+
+</html>
