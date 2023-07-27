@@ -1,4 +1,3 @@
----
 license: apache-2.0
 tags:
 - generated_from_trainer
@@ -22,10 +21,7 @@ model-index:
     - name: Accuracy
       type: accuracy
       value: 0.9164516129032259
----
 
-<!-- This model card has been generated automatically according to the information the Trainer had access to. You
-should probably proofread and complete it, then remove this comment. -->
 
 # kd-distilBERT-clinc
 
@@ -37,7 +33,11 @@ It achieves the following results on the evaluation set:
 
 ## Model description
 
-More information needed
+- Train a student model to reproduce the behavior of a larger, more complex model, which is called the teacher model. And so the idea is to transfer knowledge from the larger model to the smaller one. So, this way the student achieves higher performance than it would learning on its own. So, this helps create models that are faster and more efficient while maintaining higher accuracy.
+
+- Modifies the standard cross entropy loss that we use for classification, and is specifically designed to address class imbalance problems in dataset. Focal loss is a function that deals with class imbalance, where there is a lot of negative samples, or objects with little interest. For example, an image background, or some audible file with "white noise" or unwanted noise. There is relatively few hard positive samples, which are the examples that you want to detect. This leads to imbalance, diverting attention away from the hard positive samples. Higher loss -> for hard misclassified examples. Lower loss -> for correct, easy examples. Ultimately prevents a number of easy negatives from overwhelming the detector during training. 
+
+- Instead of calculating loss based on individual classes, it calculates loss based on the distribution of classes which improves the model's ability to handle class imbalance. 
 
 ## Intended uses & limitations
 
