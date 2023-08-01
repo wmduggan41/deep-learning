@@ -67,3 +67,5 @@ The following hyperparameters were used during training:
 	publisher    = { Hugging Face }
 }
 ```
+### `Video Presentation`
+[![Knowledge Distillation](images/kdn.jpg)](https://youtu.be/w-WfHlZ8TN4)
