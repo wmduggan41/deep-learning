@@ -68,4 +68,4 @@ The following hyperparameters were used during training:
 }
 ```
 ### `Video Presentation`
-[![Knowledge Distillation](images/kdn.jpg)](https://youtu.be/w-WfHlZ8TN4)
+[![Knowledge Distillation](../images/kdn.jpg)](https://youtu.be/w-WfHlZ8TN4)
